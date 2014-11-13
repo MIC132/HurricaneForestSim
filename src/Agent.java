@@ -1,4 +1,4 @@
-public class Agent implements Runnable{
+public abstract class Agent implements Runnable{
     @Override
     public void run(){}
 }
