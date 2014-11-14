@@ -45,11 +45,16 @@ public abstract class Tree extends Agent{
     }
 
     double getBMax(double height, double speed){
-        return getFGust(1, 1, 1) * getFGap() * (getWindForce(height, speed) + (getGravForce(height) * getDisplacement(height)));
+        return getFGust(1, 1, 1) * getFGap() * (getWindForce(height, speed) + (getGravForce(height) * getDisplacement(height, speed)));
     }
 
-    double getDisplacement(double height){
-        return 1;
-        //TODO: implement the equation 2.10/9
+    double getDisplacement(double z, double speed){
+
+        if(z <= crownH) return (getWindForce(z, speed) * Math.pow(crownH, 2) * height * (3 - (crownH / height) - ((3 * (height - z)) / height)))
+                / ((6 * MOE * Math.PI * Math.pow(getSurface(1.3), 4)) / 64);
+        return (getWindForce(z, speed) * Math.pow(crownH, 3) * ((2 - ((3 * ((height - z) - (crownH - height))) / crownH)) + (Math.pow((height - z) - (crownH - height), 3) / Math.pow(crownH, 3))))
+                / ((6 * MOE * Math.PI * Math.pow(getSurface(1.3), 4)) / 64);
+
+
     }
 }
