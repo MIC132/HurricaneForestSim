@@ -51,7 +51,7 @@ public abstract class Tree extends Agent{
     double getDisplacement(double height, double speed){
         if(height <= crownH) return (getWindForce(height, speed) * Math.pow(crownH, 2) * this.height * (3 - (crownH / this.height) - ((3 * (this.height - height)) / this.height)))
                 / ((6 * MOE * Math.PI * Math.pow(getSurface(1.3), 4)) / 64);
-        return (getWindForce(height, speed) * Math.pow(crownH, 3) * ((2 - ((3 * ((this.height - height) - (crownH - this.height))) / crownH)) + (Math.pow((this.height - height) - (crownH - this.height), 3) / Math.pow(crownH, 3))))
+        return (getWindForce(height, speed) * Math.pow(crownH, 3) * ((2 - ((3 * ((this.height - height) - (crownH - this.height))) / crownH)) + (Math.pow(this.height - height - (crownH - this.height), 3) / Math.pow(crownH, 3))))
                 / ((6 * MOE * Math.PI * Math.pow(getSurface(1.3), 4)) / 64);
     }
 }
