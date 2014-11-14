@@ -48,13 +48,10 @@ public abstract class Tree extends Agent{
         return getFGust(1, 1, 1) * getFGap() * (getWindForce(height, speed) + (getGravForce(height) * getDisplacement(height, speed)));
     }
 
-    double getDisplacement(double z, double speed){
-
-        if(z <= crownH) return (getWindForce(z, speed) * Math.pow(crownH, 2) * height * (3 - (crownH / height) - ((3 * (height - z)) / height)))
+    double getDisplacement(double height, double speed){
+        if(height <= crownH) return (getWindForce(height, speed) * Math.pow(crownH, 2) * this.height * (3 - (crownH / this.height) - ((3 * (this.height - height)) / this.height)))
                 / ((6 * MOE * Math.PI * Math.pow(getSurface(1.3), 4)) / 64);
-        return (getWindForce(z, speed) * Math.pow(crownH, 3) * ((2 - ((3 * ((height - z) - (crownH - height))) / crownH)) + (Math.pow((height - z) - (crownH - height), 3) / Math.pow(crownH, 3))))
+        return (getWindForce(height, speed) * Math.pow(crownH, 3) * ((2 - ((3 * ((this.height - height) - (crownH - this.height))) / crownH)) + (Math.pow((this.height - height) - (crownH - this.height), 3) / Math.pow(crownH, 3))))
                 / ((6 * MOE * Math.PI * Math.pow(getSurface(1.3), 4)) / 64);
-
-
     }
 }
