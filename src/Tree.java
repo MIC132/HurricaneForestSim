@@ -38,9 +38,10 @@ public abstract class Tree extends Agent{
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            if(getTotalForce() > getTopplePoint()){
+            if(getTotalForce() >= getBreakingPoint()){
                 state = State.BROKEN;
-            }else if(getTotalForce()>getBreakingPoint()){
+            }
+            if(getTotalForce() >= getTopplePoint()){
                 state = State.UPROOTED;
             }
             forest.sem.release();
@@ -49,20 +50,32 @@ public abstract class Tree extends Agent{
 
     abstract double getSurface(double height);
 
+    double getSurfaceCalibrated(double height){
+        if(height < trunkH) return getSurface(height);
+        if(windSpeed < 11){
+            return getSurface(height)*0.8;
+        }
+        if(windSpeed >= 11 && windSpeed <= 20){
+            return getSurface(height)*(0.044444*windSpeed-0.28889);
+        }
+            return getSurface(height)*0.4;
+    }
+
     double getGravForce(double height){
         if(height < trunkH){
             return Math.pow(trunkW/2,2)*Math.PI*1*dens*gravity;
         }
-        return (getSurface(height) / 2) * (1 / 3) * Math.PI * 1 * dens * gravity;
+        return (getSurfaceCalibrated(height) / 2.0) * (1.0 / 3.0) * Math.PI * 1 * dens * gravity;
     }
     double getWindForce(double height, double speed){
-        return (1/2)*dragCoeff*airDens*Math.pow(speed,2)*getSurface(height);
+        return (0.5)*dragCoeff*airDens*Math.pow(speed,2)*getSurfaceCalibrated(height);
     }
 
     double getFGust(double x){
         double GMean = Math.pow(((0.68 * (avgDist / avgHeight)) - 0.0385) + (((-0.68 * (avgDist / avgHeight)) + 0.4875) * ((1.7239 * (avgDist / avgHeight)) + 0.0316)),x/avgHeight);
         double GMax = Math.pow(((2.7913 * (avgDist / avgHeight)) - 0.061) + (((-1.273 * (avgDist / avgHeight)) + 9.9701) * ((1.1127 * (avgDist / avgHeight)) + 0.0311)),x/avgHeight);
-        return GMax/GMean;
+        //return GMax/GMean;
+        return 1;
     }
 
     double getFGap(){
@@ -70,7 +83,7 @@ public abstract class Tree extends Agent{
     }
 
     double getBreakingPoint(){
-        return (Math.PI/32)*MOR*Math.pow(trunkW,3);
+        return (Math.PI/32.0)*MOR*Math.pow(trunkW,3);
     }
 
     double getTopplePoint(){
@@ -90,10 +103,10 @@ public abstract class Tree extends Agent{
     }
 
     double getDisplacement(double height, double speed){
-        if(height <= crownH) return (getWindForce(height, speed) * Math.pow(crownH, 2) * this.height * (3 - (crownH / this.height) - ((3 * (this.height - height)) / this.height)))
-                / ((6 * MOE * Math.PI * Math.pow(getSurface(1.3), 4)) / 64);
-        return (getWindForce(height, speed) * Math.pow(crownH, 3) * ((2 - ((3 * ((this.height - height) - (crownH - this.height))) / crownH)) + (Math.pow(this.height - height - (crownH - this.height), 3) / Math.pow(crownH, 3))))
-                / ((6 * MOE * Math.PI * Math.pow(getSurface(1.3), 4)) / 64);
+        if(height <= (trunkH+crownH/2)) return (getWindForce(height, speed) * Math.pow((trunkH+crownH/2), 2) * this.height * (3 - ((trunkH+crownH/2) / this.height) - ((3 * (this.height - height)) / this.height)))
+                / ((6 * MOE * Math.PI * Math.pow(trunkW, 4)) / 64.0);
+        return (getWindForce(height, speed) * Math.pow((trunkH+crownH/2), 3) * ((2 - ((3 * ((this.height - height) - ((trunkH+crownH/2) - this.height))) / (trunkH+crownH/2))) + (Math.pow(this.height - height - ((trunkH+crownH/2) - this.height), 3) / Math.pow((trunkH+crownH/2), 3))))
+                / ((6 * MOE * Math.PI * Math.pow(trunkW, 4)) / 64.0);
     }
 
     double getDistance(Tree tree){

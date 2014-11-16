@@ -1,21 +1,25 @@
 import java.util.LinkedList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 public class Forest {
     Semaphore sem = new Semaphore(0);
     LinkedList<Tree> trees = new LinkedList<Tree>();
+    ExecutorService exec = Executors.newCachedThreadPool();
 
     public void run(){
+        for(Tree t : trees){
+            exec.execute(t);
+        }
         for(int i=0;i<10;i++){
             int okTrees = getOkTrees().size();
-            //do stuff
-
             double speed = calcWindSpeed();
 
             for(Tree t : getOkTrees()){
                 t.windSpeed = speed;
                 t.avgHeight = calcAvgHeight();
-                t.avgDist = calcAvgCloseDist(t);
+                t.avgDist = calcAvgCloseDist();
                 t.sem.release();
             }
 
@@ -25,6 +29,7 @@ public class Forest {
                 Thread.currentThread().interrupt();
             }
         }
+        exec.shutdownNow();
     }
 
     public LinkedList<Tree> getOkTrees(){
@@ -36,7 +41,7 @@ public class Forest {
     }
 
     double calcWindSpeed(){
-        return 20;
+        return 10;
     }
 
     double calcAvgHeight(){
@@ -48,20 +53,24 @@ public class Forest {
         return total;
     }
 
-    double calcAvgCloseDist(Tree tree){
+    double calcAvgCloseDist(){
         double total = 0;
-        for(Tree t : getCloseTrees(tree, 100)){
-            total += tree.getDistance(t);
+        for(Tree t : getOkTrees()){
+            total += t.getDistance(getClosestTree(t));
         }
-        total /= getCloseTrees(tree, 100).size();
+        total /= getOkTrees().size();
         return total;
     }
 
-    LinkedList<Tree> getCloseTrees(Tree tree, double dist){
-        LinkedList<Tree> output = new LinkedList<Tree>();
-        for (Tree t : getOkTrees()){
+    Tree getClosestTree(Tree tree){
+        double dist = 1000;
+        LinkedList<Tree> temp = getOkTrees();
+        temp.remove(tree);
+        Tree output = tree;
+        for (Tree t : temp){
             if(tree.getDistance(t) <= dist){
-                output.add(t);
+                output = t;
+                dist = tree.getDistance(t);
             }
         }
         return output;
