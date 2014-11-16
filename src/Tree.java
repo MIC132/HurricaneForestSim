@@ -1,3 +1,5 @@
+import java.util.concurrent.Semaphore;
+
 public abstract class Tree extends Agent{
     double MOR;
     double MOE;
@@ -13,8 +15,29 @@ public abstract class Tree extends Agent{
     double crownW;
     double rootM;
     double rootD;
+    Forest forest;
+
+    State state = State.OK;
+
+    public enum State{OK, TOPPLED, UPROOTED}
+
+    Semaphore sem = new Semaphore(0);
+
+    public void run(){
+        while(state == State.OK){
+            try {
+                sem.acquire();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+
+
+            forest.sem.release();
+        }
+    }
 
     abstract double getSurface(double height);
+
     double getGravForce(double height){
         if(height < trunkH){
             return Math.pow(trunkW/2,2)*Math.PI*1*dens*gravity;
