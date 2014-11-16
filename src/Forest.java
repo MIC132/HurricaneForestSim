@@ -7,6 +7,7 @@ public class Forest {
 
     public void run(){
         for(int i=0;i<10;i++){
+            int okTrees = getOkTrees().size();
             //do stuff
 
             for(Tree t : trees){
@@ -14,7 +15,7 @@ public class Forest {
             }
 
             try {
-                sem.acquire(getOkTrees().size());
+                sem.acquire(okTrees);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
