@@ -12,7 +12,7 @@ public class Main {
         }
         forest.run();
         for(Tree t: forest.trees){
-            System.out.println(t.getDisplacement(9,10));
+            //System.out.println(t.getDisplacement(1,10));
             System.out.print(t.getTotalForce());
             System.out.print(' ');
             System.out.print(t.getBreakingPoint());

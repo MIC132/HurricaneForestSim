@@ -99,14 +99,14 @@ public abstract class Tree extends Agent{
         for(int i=0;i<height;i++){
             total += getBMax(i);
         }
-        return total;
+        return total/1000000;
     }
 
     double getDisplacement(double height, double speed){
         if(height <= (trunkH+crownH/2)) return (getWindForce(height, speed) * Math.pow((trunkH+crownH/2), 2) * this.height * (3 - ((trunkH+crownH/2) / this.height) - ((3 * (this.height - height)) / this.height)))
-                / ((6 * MOE * Math.PI * Math.pow(trunkW, 4)) / 64.0);
+                / (6 * MOE * ((Math.PI * Math.pow(trunkW, 4)) / 64.0));
         return (getWindForce(height, speed) * Math.pow((trunkH+crownH/2), 3) * ((2 - ((3 * ((this.height - height) - ((trunkH+crownH/2) - this.height))) / (trunkH+crownH/2))) + (Math.pow(this.height - height - ((trunkH+crownH/2) - this.height), 3) / Math.pow((trunkH+crownH/2), 3))))
-                / ((6 * MOE * Math.PI * Math.pow(trunkW, 4)) / 64.0);
+                / (6 * MOE * ((Math.PI * Math.pow(trunkW, 4)) / 64.0));
     }
 
     double getDistance(Tree tree){
