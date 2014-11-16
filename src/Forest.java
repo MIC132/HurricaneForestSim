@@ -10,7 +10,7 @@ public class Forest {
             int okTrees = getOkTrees().size();
             //do stuff
 
-            for(Tree t : trees){
+            for(Tree t : getOkTrees()){
                 t.sem.release();
             }
 
