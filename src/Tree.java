@@ -23,6 +23,7 @@ public abstract class Tree extends Agent{
 
     Semaphore sem = new Semaphore(0);
 
+    @Override
     public void run(){
         while(state == State.OK){
             try {
