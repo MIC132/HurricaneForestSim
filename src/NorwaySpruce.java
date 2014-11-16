@@ -1,6 +1,11 @@
 public class NorwaySpruce extends Tree {
+    // dwie
+    // linijki
+    // komentarza
 
-    public NorwaySpruce(double trunkH, double trunkW, double crownH, double crownW) {
+    public NorwaySpruce(int x, int y, double trunkH, double trunkW, double crownH, double crownW) {
+        this.x = x;
+        this.y = y;
         this.height = trunkH + crownH;
         this.trunkH = trunkH;
         this.trunkW = trunkW;
