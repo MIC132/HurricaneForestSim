@@ -65,7 +65,7 @@ public abstract class Tree extends Agent{
         if(height < trunkH){
             return Math.pow(trunkW/2,2)*Math.PI*1*dens*gravity;
         }
-        return (getSurfaceCalibrated(height) / 2.0) * (1.0 / 3.0) * Math.PI * 1 * dens * gravity;
+        return (getSurfaceCalibrated(height) / 2.0) * (1.0 / 3.0) * Math.PI * 1 * dens * 0.5 * gravity;
     }
     double getWindForce(double height, double speed){
         return (0.5)*dragCoeff*airDens*Math.pow(speed,2)*getSurfaceCalibrated(height);
@@ -83,7 +83,8 @@ public abstract class Tree extends Agent{
     }
 
     double getBreakingPoint(){
-        return (Math.PI/32.0)*MOR*Math.pow(trunkW,3);
+        //return (Math.PI/32.0)*MOR*Math.pow(trunkW*100,3);
+        return ((Math.PI/32.0)*MOR*Math.pow(trunkW*100,4)/100)/trunkW;
     }
 
     double getTopplePoint(){
@@ -99,14 +100,14 @@ public abstract class Tree extends Agent{
         for(int i=0;i<height;i++){
             total += getBMax(i);
         }
-        return total/1000000;
+        return total;
     }
 
     double getDisplacement(double height, double speed){
         if(height <= (trunkH+crownH/2)) return (getWindForce(height, speed) * Math.pow((trunkH+crownH/2), 2) * this.height * (3 - ((trunkH+crownH/2) / this.height) - ((3 * (this.height - height)) / this.height)))
-                / (6 * MOE * ((Math.PI * Math.pow(trunkW, 4)) / 64.0));
+                / (6 * MOE * ((Math.PI * Math.pow(trunkW*100, 4)) / 64.0)/100);
         return (getWindForce(height, speed) * Math.pow((trunkH+crownH/2), 3) * ((2 - ((3 * ((this.height - height) - ((trunkH+crownH/2) - this.height))) / (trunkH+crownH/2))) + (Math.pow(this.height - height - ((trunkH+crownH/2) - this.height), 3) / Math.pow((trunkH+crownH/2), 3))))
-                / (6 * MOE * ((Math.PI * Math.pow(trunkW, 4)) / 64.0));
+                / (6 * MOE * ((Math.PI * Math.pow(trunkW*100, 4)) / 64.0)/100);
     }
 
     double getDistance(Tree tree){

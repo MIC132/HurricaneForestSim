@@ -41,7 +41,7 @@ public class Forest {
     }
 
     double calcWindSpeed(){
-        return 120;
+        return 20;
     }
 
     double calcAvgHeight(){

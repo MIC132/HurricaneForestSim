@@ -8,13 +8,15 @@ public class ScotsPine extends Tree {
         this.trunkW = trunkW;
         this.crownH = crownH;
         this.crownW = crownW;
-        this.rootD = height/4;
+        //this.rootD = height/4;
+        this.rootD = 0.5;
         this.dens = 550;                // kg/m^3
-        this.rootM = 0.1 * Math.pow(crownW/2, 3) * dens;
-        //this.MOE = 7000;
-        //this.MOR = 39.1;
-        this.MOE = 10 * 1000;
-        this.MOR = 80;
+        //this.rootM = 0.1 * Math.pow(crownW/2, 3) * dens;
+        this.rootM = 0.5 * crownH * crownW * 100;
+        this.MOE = 7000;
+        this.MOR = 39.1;
+        //this.MOE = 10 * 1000;
+        //this.MOR = 80;
         this.dragCoeff = 0.29;
         this.soilToTreeRatio = 0.3;
     }

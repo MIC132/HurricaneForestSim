@@ -5,7 +5,7 @@ public class Main {
         Forest forest = new Forest();
         Random rng = new Random();
         for(int i=0;i<10;i++){
-            forest.trees.add(new ScotsPine(rng.nextInt(100), rng.nextInt(100),4, 1,10,10));
+            forest.trees.add(new ScotsPine(rng.nextInt(100), rng.nextInt(100),5, 1.5,15,10));
         }
         for(Tree t: forest.trees){
             t.forest = forest;
