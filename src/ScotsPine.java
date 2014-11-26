@@ -10,7 +10,7 @@ public class ScotsPine extends Tree {
         this.crownW = crownW;
         this.rootD = height/4;
         this.dens = 550;                // kg/m^3
-        this.rootM = 0.1 * Math.pow(crownW/2, 3) * dens;
+        this.rootM = 0.1 * Math.pow(crownW, 2)*rootD * dens;
         //this.MOE = 7000;
         //this.MOR = 39.1;
         this.MOE = 10 * 1000;
@@ -22,9 +22,9 @@ public class ScotsPine extends Tree {
     @Override
     double getSurface(double height) {
         if(height > this.height || height < 0) return 0;
-        if(height+1 <= trunkH) return trunkW*1;            //trunkW * 1m
+        if(height+1 <= trunkH) return trunkW*1/100;            //trunkW * 1m
         if(height < trunkH && height+1 > trunkH) {
-            return (trunkH - height) * trunkW + ((2 * Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / crownH)));
+            return (trunkH - height) * trunkW/100 + ((2 * Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / crownH)));
         }
         if(height >= trunkH && height+1 <= trunkH+crownH/2) {
             return ((2 * Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / crownH)))

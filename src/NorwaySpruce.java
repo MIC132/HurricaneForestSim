@@ -18,9 +18,9 @@ public class NorwaySpruce extends Tree {
     @Override
     double getSurface(double height) {
         if (height > this.height || height < 0) return 0;
-        else if (height + 1 <= trunkH) return trunkW * 1;            //trunkW * 1m
+        else if (height + 1 <= trunkH) return trunkW * 1/100;            //trunkW * 1m
         else if (height < trunkH && height + 1 > trunkH)
-            return (trunkH - height) * trunkW + ((Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / (2*crownH))));
+            return (trunkH - height) * trunkW/100 + ((Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / (2*crownH))));
         else if (height >= trunkH && height + 1 < height)
             return ((Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / (2*crownH))))
                     - ((Math.pow(height - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / (2*crownH))));
