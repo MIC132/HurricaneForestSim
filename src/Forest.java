@@ -12,7 +12,7 @@ public class Forest {
         for(Tree t : trees){
             exec.execute(t);
         }
-        for(int i=0;i<10;i++){
+        for(int i=0;i<2;i++){
             int okTrees = getOkTrees().size();
             double speed = calcWindSpeed();
 
@@ -29,7 +29,7 @@ public class Forest {
                 Thread.currentThread().interrupt();
             }
         }
-        exec.shutdownNow();
+        exec.shutdown();
     }
 
     public LinkedList<Tree> getOkTrees(){
@@ -41,7 +41,7 @@ public class Forest {
     }
 
     double calcWindSpeed(){
-        return 220;
+        return 20;
     }
 
     double calcAvgHeight(){

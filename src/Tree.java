@@ -82,8 +82,8 @@ public abstract class Tree extends Agent{
 
     double getBMax(double height){
         //return getFGust(1) * getFGap() * (getWindForce(height, windSpeed) + (getGravForce(height) * getDisplacement(height, windSpeed)));
-        System.out.print("Disp: " + getDisplacement(height, windSpeed) + " Height: " + height + "\n");
-        System.out.print("Wind: " + getWindForce(height, windSpeed) + " Grav: " + getGravForce(height) + "\n");
+        //System.out.print("Disp: " + getDisplacement(height, windSpeed) + " Height: " + height + "\n");
+        //System.out.print("Wind: " + getWindForce(height, windSpeed) + " Grav: " + getGravForce(height) + "\n");
         return getWindForce(height, windSpeed)*height + getGravForce(height)*getDisplacement(height, windSpeed);
     }
 
@@ -104,7 +104,7 @@ public abstract class Tree extends Agent{
                 / (6 * MOE * ((Math.PI * Math.pow(trunkW, 4)) / 64.0));
                 */
         if(height == 0) return getWindForce(height, speed)/MOE;
-        else return getWindForce(height, speed)/(MOE*(1 - height/this.height)) + getDisplacement(height-1, speed);
+        else return Math.sin(getWindForce(height, speed)/(MOE*(1 - height/this.height))) + getDisplacement(height-1, speed);
     }
 
     double getDistance(Tree tree){

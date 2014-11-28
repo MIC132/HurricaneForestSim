@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args){
         Forest forest = new Forest();
         Random rng = new Random();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<1;i++){
             forest.trees.add(new ScotsPine(rng.nextInt(100), rng.nextInt(100),2, 30,10,3));
         }
         for(Tree t: forest.trees){
