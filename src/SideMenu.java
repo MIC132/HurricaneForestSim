@@ -20,8 +20,8 @@ public class SideMenu extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainWindow.run();
-                runButton.setEnabled(false);
-                speedField.setEnabled(false);
+                //runButton.setEnabled(false);
+                //speedField.setEnabled(false);
             }
         });
         runButton.setMaximumSize(new Dimension(100,50));

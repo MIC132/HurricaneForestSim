@@ -7,33 +7,35 @@ import java.util.concurrent.Semaphore;
 public class Forest {
     Semaphore sem = new Semaphore(0);
     LinkedList<Tree> trees = new LinkedList<Tree>();
-    ExecutorService exec = Executors.newCachedThreadPool();
+    ExecutorService exec;
     Random rng = new Random();
 
     double speedExt = 0; //Temporary solution
 
     public void run(){
+        exec = Executors.newCachedThreadPool();
         for(Tree t : trees){
             t.forest = this;
+            t.shouldFinish = false;
             exec.execute(t);
         }
-        for(int i=0;i<2;i++){
-            int okTrees = getOkTrees().size();
-            double speed = calcWindSpeed();
 
-            for(Tree t : getOkTrees()){
-                t.windSpeed = speed;
-                t.avgHeight = calcAvgHeight();
-                t.avgDist = calcAvgCloseDist();
-                t.sem.release();
-            }
+        int okTrees = getOkTrees().size();
+        double speed = calcWindSpeed();
 
-            try {
-                sem.acquire(okTrees);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+        for(Tree t : getOkTrees()){
+            t.windSpeed = speed;
+            t.avgHeight = calcAvgHeight();
+            t.avgDist = calcAvgCloseDist();
+            t.sem.release();
         }
+
+        try {
+            sem.acquire(okTrees);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
         for(Tree t: trees){
             t.shouldFinish = true;
             t.sem.release();
