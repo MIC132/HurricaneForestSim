@@ -7,14 +7,10 @@ public class MainProgramWindow {
     DisplayPanel displayPanel;
     SideMenu sideMenu;
     Forest forest;
-    Random rng;
+    Random rng = new Random();
 
     public MainProgramWindow() {
         forest = new Forest();
-        rng = new Random();
-        for(int i=0;i<50;i++) {
-            forest.trees.add(new ScotsPine(rng.nextInt(400), rng.nextInt(500), 5, 0.5, 15, 10));
-        }
 
         mainWindow = new JFrame();
         displayPanel = new DisplayPanel(this, forest);
@@ -30,6 +26,7 @@ public class MainProgramWindow {
     }
 
     public void run(){
+        forest.speedExt = Double.parseDouble(sideMenu.speedField.getText());
         forest.run();
         displayPanel.repaint();
     }
