@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
@@ -7,9 +8,13 @@ public class Forest {
     Semaphore sem = new Semaphore(0);
     LinkedList<Tree> trees = new LinkedList<Tree>();
     ExecutorService exec = Executors.newCachedThreadPool();
+    Random rng = new Random();
+
+    double speedExt = 0; //Temporary solution
 
     public void run(){
         for(Tree t : trees){
+            t.forest = this;
             exec.execute(t);
         }
         for(int i=0;i<2;i++){
@@ -29,7 +34,11 @@ public class Forest {
                 Thread.currentThread().interrupt();
             }
         }
-        exec.shutdown();
+        for(Tree t: trees){
+            t.shouldFinish = true;
+            t.sem.release();
+        }
+        exec.shutdownNow();
     }
 
     public LinkedList<Tree> getOkTrees(){
@@ -41,7 +50,7 @@ public class Forest {
     }
 
     double calcWindSpeed(){
-        return 20;
+        return speedExt;
     }
 
     double calcAvgHeight(){
@@ -74,5 +83,11 @@ public class Forest {
             }
         }
         return output;
+    }
+
+    public void addRandomTrees(int amount, int xLim, int yLim){
+        for(int i=0;i<amount;i++){
+            trees.add(new ScotsPine(rng.nextInt(xLim), rng.nextInt(yLim), rng.nextInt(3)+2, 0.5, rng.nextInt(5)+10, rng.nextInt(5)+10));
+        }
     }
 }
