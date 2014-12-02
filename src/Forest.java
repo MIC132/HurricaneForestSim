@@ -8,8 +8,11 @@ public class Forest {
     LinkedList<Tree> trees = new LinkedList<Tree>();
     ExecutorService exec = Executors.newCachedThreadPool();
 
+    double speed = 0; //Temporary solution
+
     public void run(){
         for(Tree t : trees){
+            t.forest = this;
             exec.execute(t);
         }
         for(int i=0;i<10;i++){
@@ -29,7 +32,11 @@ public class Forest {
                 Thread.currentThread().interrupt();
             }
         }
-        exec.shutdownNow();
+        //exec.shutdownNow();
+        for(Tree t: trees){
+            t.shouldFinish = true;
+            t.sem.release();
+        }
     }
 
     public LinkedList<Tree> getOkTrees(){
@@ -41,7 +48,7 @@ public class Forest {
     }
 
     double calcWindSpeed(){
-        return 20;
+        return speed;
     }
 
     double calcAvgHeight(){

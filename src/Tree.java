@@ -1,8 +1,8 @@
 import java.util.concurrent.Semaphore;
 
 public abstract class Tree extends Agent{
-    double x;
-    double y;
+    int x;
+    int y;
     double MOR;
     double MOE;
     double airDens = 1.226;
@@ -25,6 +25,7 @@ public abstract class Tree extends Agent{
     volatile double avgDist;
 
     State state = State.OK;
+    boolean shouldFinish = false;
 
     public enum State{OK, BROKEN, UPROOTED}
 
@@ -38,6 +39,7 @@ public abstract class Tree extends Agent{
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
+            if(shouldFinish) return;
             if(getTotalForce() >= getBreakingPoint()){
                 state = State.BROKEN;
             }
