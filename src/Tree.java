@@ -73,7 +73,6 @@ public abstract class Tree extends Agent{
 
     double getBreakingPoint(){
         return (Math.PI/32.0)*MOR*Math.pow(trunkW,3);
-
     }
 
     double getTopplePoint(){
