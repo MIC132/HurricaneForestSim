@@ -12,7 +12,7 @@ public abstract class Tree extends Agent{
     double soilToTreeRatio;
     double height;
     double trunkH;
-    double crownH;                  //from bottom of the crown gto top of the crown
+    double crownH;                  //from bottom of the crown to top of the crown
     double trunkW;
     double crownW;
     double rootM;
@@ -68,7 +68,7 @@ public abstract class Tree extends Agent{
         return (Math.pow(getSurface(height) / 2.0,2) * (1.0 / 10.0) * Math.PI * 1 * dens * gravity) + (Math.pow((1 - height/this.height)*trunkW/200,2)*Math.PI*1*dens*gravity);
     }
     double getWindForce(double height, double speed){
-        return (0.5)*dragCoeff*airDens*Math.pow(speed,2)*getSurfaceCalibrated(height);
+        return 0.7 * dragCoeff*airDens*Math.pow(speed,2)*getSurfaceCalibrated(height);
     }
 
     double getBreakingPoint(){
