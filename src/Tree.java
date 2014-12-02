@@ -12,7 +12,7 @@ public abstract class Tree extends Agent{
     double soilToTreeRatio;
     double height;
     double trunkH;
-    double crownH;                  //from bottom of the crown gto top of the crown
+    double crownH;                  //from bottom of the crown to top of the crown
     double trunkW;
     double crownW;
     double rootM;
@@ -67,10 +67,10 @@ public abstract class Tree extends Agent{
         if(height < trunkH){
             return Math.pow(trunkW/200,2)*Math.PI*1*dens*gravity;
         }
-        return (getSurfaceCalibrated(height) / 2.0) * (1.0 / 3.0) * Math.PI * 1 * dens * gravity;
+        return (Math.pow(getSurface(height) / 2.0,2) * (1.0 / 10.0) * Math.PI * 1 * dens * gravity) + (Math.pow((1 - height/this.height)*trunkW/200,2)*Math.PI*1*dens*gravity);
     }
     double getWindForce(double height, double speed){
-        return (0.5)*dragCoeff*airDens*Math.pow(speed,2)*getSurfaceCalibrated(height);
+        return 0.7 * dragCoeff*airDens*Math.pow(speed,2)*getSurfaceCalibrated(height);
     }
 
     double getBreakingPoint(){
@@ -83,9 +83,6 @@ public abstract class Tree extends Agent{
     }
 
     double getBMax(double height){
-        //return getFGust(1) * getFGap() * (getWindForce(height, windSpeed) + (getGravForce(height) * getDisplacement(height, windSpeed)));
-        //System.out.print("Disp: " + getDisplacement(height, windSpeed) + " Height: " + height + "\n");
-        //System.out.print("Wind: " + getWindForce(height, windSpeed) + " Grav: " + getGravForce(height) + "\n");
         return getWindForce(height, windSpeed)*height + getGravForce(height)*getDisplacement(height, windSpeed);
     }
 
@@ -98,13 +95,6 @@ public abstract class Tree extends Agent{
     }
 
     double getDisplacement(double height, double speed){
-        /*
-        if(height <= (trunkH+crownH/2))
-            return (getWindForce(height, speed) * Math.pow((trunkH+crownH/2), 2) * this.height * (3 - ((trunkH+crownH/2) / this.height) - ((3 * (this.height - height)) / this.height)))
-                / (6 * MOE * ((Math.PI * Math.pow(trunkW, 4)) / 64.0));
-        return (getWindForce(height, speed) * Math.pow((trunkH+crownH/2), 3) * ((2 - ((3 * ((this.height - height) - ((trunkH+crownH/2) - this.height))) / (trunkH+crownH/2))) + (Math.pow(this.height - height - ((trunkH+crownH/2) - this.height), 3) / Math.pow((trunkH+crownH/2), 3))))
-                / (6 * MOE * ((Math.PI * Math.pow(trunkW, 4)) / 64.0));
-                */
         if(height == 0) return getWindForce(height, speed)/MOE;
         else return Math.sin(getWindForce(height, speed)/(MOE*(1 - height/this.height))) + getDisplacement(height-1, speed);
     }
