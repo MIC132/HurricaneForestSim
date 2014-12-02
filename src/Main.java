@@ -1,11 +1,9 @@
-import java.util.Random;
-
 public class Main {
     public static void main(String[] args){
-        Forest forest = new Forest();
+        /*Forest forest = new Forest();
         Random rng = new Random();
         for(int i=0;i<10;i++){
-            forest.trees.add(new ScotsPine(rng.nextInt(100),  rng.nextInt(100),2, 30,10,3));
+            forest.trees.add(new ScotsPine(rng.nextInt(100),  rng.nextInt(100),2, 25,10,3));
         }
         forest.speedExt = 20;
         forest.run();
@@ -17,7 +15,7 @@ public class Main {
             System.out.print(' ');
             System.out.print(t.getTopplePoint());
             System.out.println(t.state);
-        }
-        //MainProgramWindow mw = new MainProgramWindow();
+        }*/
+        MainProgramWindow mw = new MainProgramWindow();
     }
 }

@@ -89,7 +89,7 @@ public class Forest {
 
     public void addRandomTrees(int amount, int xLim, int yLim){
         for(int i=0;i<amount;i++){
-            trees.add(new ScotsPine(rng.nextInt(xLim), rng.nextInt(yLim), rng.nextInt(3)+2, 0.5, rng.nextInt(5)+10, rng.nextInt(5)+10));
+            trees.add(new ScotsPine(rng.nextInt(xLim), rng.nextInt(yLim), rng.nextInt(3)+2, rng.nextInt(10)+25, rng.nextInt(5)+10, rng.nextInt(2)+2));
         }
     }
 }
