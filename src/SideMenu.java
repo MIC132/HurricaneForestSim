@@ -20,6 +20,7 @@ public class SideMenu extends JPanel {
 
 
         pineButton = new JRadioButton("Scots Pine");
+        pineButton.setEnabled(true);
         spruceButton = new JRadioButton("Norway Spruce");
         ButtonGroup treeButtons  = new ButtonGroup();
         treeButtons.add(pineButton);
