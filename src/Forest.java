@@ -25,8 +25,6 @@ public class Forest {
 
         for(Tree t : getOkTrees()){
             t.windSpeed = speed;
-            t.avgHeight = calcAvgHeight();
-            t.avgDist = calcAvgCloseDist();
             t.sem.release();
         }
 
@@ -55,24 +53,6 @@ public class Forest {
         return speedExt;
     }
 
-    double calcAvgHeight(){
-        double total = 0;
-        for(Tree t : getOkTrees()){
-            total += t.height;
-        }
-        total /= getOkTrees().size();
-        return total;
-    }
-
-    double calcAvgCloseDist(){
-        double total = 0;
-        for(Tree t : getOkTrees()){
-            total += t.getDistance(getClosestTree(t));
-        }
-        total /= getOkTrees().size();
-        return total;
-    }
-
     Tree getClosestTree(Tree tree){
         double dist = 1000;
         LinkedList<Tree> temp = getOkTrees();
@@ -87,9 +67,15 @@ public class Forest {
         return output;
     }
 
-    public void addRandomTrees(int amount, int xLim, int yLim){
+    public void addRandomPines(int amount, int xLim, int yLim){
         for(int i=0;i<amount;i++){
             trees.add(new ScotsPine(rng.nextInt(xLim), rng.nextInt(yLim), rng.nextInt(3)+2, rng.nextInt(10)+25, rng.nextInt(5)+10, rng.nextInt(2)+2));
+        }
+    }
+
+    public void addRandomSpruces(int amount, int xLim, int yLim){
+        for(int i=0;i<amount;i++){
+            trees.add(new NorwaySpruce(rng.nextInt(xLim), rng.nextInt(yLim), rng.nextInt(3)+2, rng.nextInt(10)+25, rng.nextInt(5)+10, rng.nextInt(2)+2));
         }
     }
 }

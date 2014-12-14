@@ -31,7 +31,7 @@ public class SideMenu extends JPanel {
         add10.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainWindow.forest.addRandomTrees(10,400,500);
+                mainWindow.forest.addRandomPines(10, 400, 500);
                 mainWindow.displayPanel.repaint();
             }
         });
@@ -42,7 +42,7 @@ public class SideMenu extends JPanel {
         add100.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainWindow.forest.addRandomTrees(100,400,500);
+                mainWindow.forest.addRandomPines(100, 400, 500);
                 mainWindow.displayPanel.repaint();
             }
         });

@@ -1,6 +1,8 @@
 public class NorwaySpruce extends Tree {
 
-    public NorwaySpruce(double trunkH, double trunkW, double crownH, double crownW) {
+    public NorwaySpruce(int x, int y, double trunkH, double trunkW, double crownH, double crownW) {
+        this.x = x;
+        this.y = y;
         this.height = trunkH + crownH;
         this.trunkH = trunkH;
         this.trunkW = trunkW;
@@ -8,9 +10,9 @@ public class NorwaySpruce extends Tree {
         this.crownW = crownW;
         this.rootD = height/2;
         this.dens = 550;                // kg/m^3
-        this.rootM = 1/5 * Math.pow(crownH, 3) * dens;
-        this.MOE = 7000;
-        this.MOR = 39.1;
+        this.rootM = 0.1 * Math.pow(crownW, 2)*rootD/2 * dens;
+        this.MOE = 6300;
+        this.MOR = 30.6;
         this.dragCoeff = 0.29;
         this.soilToTreeRatio = 0.3;
     }

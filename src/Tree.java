@@ -21,8 +21,6 @@ public abstract class Tree extends Agent{
     Forest forest;
 
     volatile double windSpeed;
-    volatile double avgHeight;
-    volatile double avgDist;
 
     State state = State.OK;
     boolean shouldFinish = false;
