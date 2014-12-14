@@ -67,7 +67,7 @@ public class Forest {
             double trunkH = 2*coeff + 2;
             double trunkW = 50*coeff + 50 + rng.nextInt(10);
             double crownH = 15*coeff + 7 + rng.nextInt(5);
-            double crownW = (3+rng.nextInt(2))*coeff + 3 ;
+            double crownW = (3+rng.nextDouble()*2)*coeff + 2 ;
             trees.add(new ScotsPine(rng.nextInt(xLim), rng.nextInt(yLim), trunkH, trunkW, crownH, crownW));
         }
     }
