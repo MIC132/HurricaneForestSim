@@ -31,21 +31,20 @@ public abstract class Tree extends Agent{
 
     @Override
     public void run(){
-        while(state == State.OK){
-            try {
-                sem.acquire();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            if(shouldFinish) return;
+        try {
+            sem.acquire();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        if(state == State.OK){
             if(getTotalForce() >= getBreakingPoint()){
                 state = State.BROKEN;
             }
             if(getTotalForce() >= getTopplePoint()){
                 state = State.UPROOTED;
             }
-            forest.sem.release();
         }
+        forest.sem.release();
     }
 
     abstract double getSurface(double height);

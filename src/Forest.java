@@ -16,7 +16,6 @@ public class Forest {
         exec = Executors.newCachedThreadPool();
         for(Tree t : trees){
             t.forest = this;
-            t.shouldFinish = false;
             exec.execute(t);
         }
 
@@ -32,11 +31,6 @@ public class Forest {
             sem.acquire(okTrees);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-        }
-
-        for(Tree t: trees){
-            t.shouldFinish = true;
-            t.sem.release();
         }
         exec.shutdownNow();
     }

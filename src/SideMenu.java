@@ -39,9 +39,9 @@ public class SideMenu extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(mainWindow.sideMenu.pineButton.isSelected()){
-                    mainWindow.forest.addRandomPines(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 500);
+                    mainWindow.forest.addRandomPines(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 600);
                 }else{
-                    mainWindow.forest.addRandomSpruces(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 500);
+                    mainWindow.forest.addRandomSpruces(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 600);
                 }
 
                 mainWindow.displayPanel.repaint();
