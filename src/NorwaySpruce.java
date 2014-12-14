@@ -10,7 +10,7 @@ public class NorwaySpruce extends Tree {
         this.crownW = crownW;
         this.rootD = height/2;
         this.dens = 550;                // kg/m^3
-        this.rootM = 0.1 * Math.pow(crownW, 2)*rootD/2 * dens;
+        this.rootM = 0.3 * Math.pow(crownW, 2)*rootD/2 * dens;
         this.MOE = 6300;
         this.MOR = 30.6;
         this.dragCoeff = 0.29;
