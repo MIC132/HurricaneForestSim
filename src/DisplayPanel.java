@@ -29,7 +29,9 @@ public class DisplayPanel extends JPanel{
                     }
                 }
                 if(currentTree != null){
-                    popup.add(new JTextArea(currentTree.toString()));
+                    JTextArea textArea = new JTextArea(currentTree.toString());
+                    textArea.setEditable(false);
+                    popup.add(textArea);
                     popup.show(mainWindow.displayPanel,x,y);
                     popup.setVisible(true);
                 }

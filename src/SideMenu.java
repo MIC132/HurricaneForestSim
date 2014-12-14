@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class SideMenu extends JPanel {
     final MainProgramWindow mainWindow;
     JButton runButton;
+    JButton clearButton;
     JButton addRandom;
     JRadioButton pineButton;
     JRadioButton spruceButton;
@@ -34,6 +35,16 @@ public class SideMenu extends JPanel {
             }
         });
         runButton.setMaximumSize(new Dimension(100,50));
+
+        clearButton = new JButton("Clear");
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainWindow.forest.trees.clear();
+                mainWindow.displayPanel.repaint();
+            }
+        });
+        clearButton.setMaximumSize(new Dimension(100,50));
 
         addRandom = new JButton("Add");
         addRandom.addActionListener(new ActionListener() {
@@ -68,5 +79,6 @@ public class SideMenu extends JPanel {
         this.add(pineButton);
         this.add(spruceButton);
         this.add(runButton);
+        this.add(clearButton);
     }
 }
