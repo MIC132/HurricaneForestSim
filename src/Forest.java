@@ -72,4 +72,16 @@ public class Forest {
             trees.add(new NorwaySpruce(rng.nextInt(xLim), rng.nextInt(yLim), rng.nextInt(3)+2, rng.nextInt(10)+25, rng.nextInt(5)+10, rng.nextInt(2)+2));
         }
     }
+
+    public void addPines(int amount, int xLim, int yLim, double trunkH, double trunkW, double crownH, double crownW){
+        for(int i=0;i<amount;i++){
+            trees.add(new ScotsPine(rng.nextInt(xLim), rng.nextInt(yLim), trunkH, trunkW, crownH, crownW));
+        }
+    }
+
+    public void addSpruces(int amount, int xLim, int yLim, double trunkH, double trunkW, double crownH, double crownW){
+        for(int i=0;i<amount;i++){
+            trees.add(new NorwaySpruce(rng.nextInt(xLim), rng.nextInt(yLim), trunkH, trunkW, crownH, crownW));
+        }
+    }
 }

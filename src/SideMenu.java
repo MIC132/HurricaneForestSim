@@ -12,6 +12,10 @@ public class SideMenu extends JPanel {
     JRadioButton spruceButton;
     JTextField speedField = new JTextField();
     JTextField radnomAmount = new JTextField();
+    JTextField trunkHField = new JTextField("2");
+    JTextField trunkWField = new JTextField("70");
+    JTextField crownHField = new JTextField("10");
+    JTextField crownWField = new JTextField("3");
 
     public SideMenu(MainProgramWindow parent) {
         this.mainWindow = parent;
@@ -21,8 +25,10 @@ public class SideMenu extends JPanel {
 
 
         pineButton = new JRadioButton("Scots Pine");
-        pineButton.setEnabled(true);
+        pineButton.setMaximumSize(new Dimension(100,50));
+        pineButton.setSelected(true);
         spruceButton = new JRadioButton("Norway Spruce");
+        spruceButton.setMaximumSize(new Dimension(100,50));
         ButtonGroup treeButtons  = new ButtonGroup();
         treeButtons.add(pineButton);
         treeButtons.add(spruceButton);
@@ -31,7 +37,9 @@ public class SideMenu extends JPanel {
         runButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mainWindow.sideMenu.runButton.setEnabled(false);
                 mainWindow.run();
+                mainWindow.sideMenu.runButton.setEnabled(true);
             }
         });
         runButton.setMaximumSize(new Dimension(100,50));
@@ -46,7 +54,7 @@ public class SideMenu extends JPanel {
         });
         clearButton.setMaximumSize(new Dimension(100,50));
 
-        addRandom = new JButton("Add");
+        addRandom = new JButton("Add Random");
         addRandom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,22 +70,59 @@ public class SideMenu extends JPanel {
         addRandom.setMaximumSize(new Dimension(100, 50));
 
 
-        JLabel speedLabel = new JLabel("Prędkośc wiatru");
+        JLabel speedLabel = new JLabel("Wind speed[m/s]");
         speedLabel.setForeground(Color.WHITE);
         speedField.setText("20");
 
-        JLabel randomLabel = new JLabel("Losowe");
-        randomLabel.setForeground(Color.WHITE);
         radnomAmount.setText("100");
 
+        JLabel amountLabel = new JLabel("Amount");
+        amountLabel.setForeground(Color.WHITE);
 
-        this.add(randomLabel);
+        JLabel trunkHLabel = new JLabel("Trunk Height[m]");
+        trunkHLabel.setForeground(Color.WHITE);
+        JLabel trunkWLabel = new JLabel("Trunk Width[cm]");
+        trunkWLabel.setForeground(Color.WHITE);
+        JLabel crownHLabel = new JLabel("Crown Height[m]");
+        crownHLabel.setForeground(Color.WHITE);
+        JLabel crownWLabel = new JLabel("Crown Wifth[m]");
+        crownWLabel.setForeground(Color.WHITE);
+
+        JButton addButton = new JButton("Add");
+        addButton.setMaximumSize(new Dimension(100,50));
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double trunkH = Double.parseDouble(mainWindow.sideMenu.trunkHField.getText());
+                double trunkW = Double.parseDouble(mainWindow.sideMenu.trunkWField.getText());
+                double crownH = Double.parseDouble(mainWindow.sideMenu.crownHField.getText());
+                double crownW = Double.parseDouble(mainWindow.sideMenu.crownWField.getText());
+                if(mainWindow.sideMenu.pineButton.isSelected()){
+                    mainWindow.forest.addPines(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 600,trunkH,trunkW,crownH,crownW);
+                }else{
+                    mainWindow.forest.addSpruces(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 600,trunkH,trunkW,crownH,crownW);
+                }
+                mainWindow.displayPanel.repaint();
+            }
+        });
+
+
         this.add(addRandom);
+        this.add(amountLabel);
         this.add(radnomAmount);
         this.add(speedLabel);
         this.add(speedField);
         this.add(pineButton);
         this.add(spruceButton);
+        this.add(trunkHLabel);
+        this.add(trunkHField);
+        this.add(trunkWLabel);
+        this.add(trunkWField);
+        this.add(crownHLabel);
+        this.add(crownHField);
+        this.add(crownWLabel);
+        this.add(crownWField);
+        this.add(addButton);
         this.add(runButton);
         this.add(clearButton);
     }
