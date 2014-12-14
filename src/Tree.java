@@ -67,7 +67,7 @@ public abstract class Tree extends Agent{
         if(height < trunkH){
             return Math.pow(trunkW/200,2)*Math.PI*1*dens*gravity;
         }
-        return (Math.pow(getSurface(height) / 2.0,2) * (1.0 / 2.0) * Math.PI * 1 * dens * gravity) + (Math.pow((1 - height/this.height)*trunkW/200,2)*Math.PI*1*dens*gravity);
+        return (Math.pow(getSurface(height) / 2.0,2) * (1.0 / 3.0) * Math.PI * 1 * dens * gravity) + (Math.pow((1 - height/this.height)*trunkW/200,2)*Math.PI*1*dens*gravity);
     }
     double getWindForce(double height, double speed){
         return dragCoeff*airDens*Math.pow(speed,2)*getSurfaceCalibrated(height);
