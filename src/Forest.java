@@ -10,7 +10,7 @@ public class Forest {
     ExecutorService exec;
     Random rng = new Random();
 
-    double speedExt = 0; //Temporary solution
+    double speedExt = 0;
 
     public void run(){
         exec = Executors.newCachedThreadPool();
@@ -20,10 +20,9 @@ public class Forest {
         }
 
         int okTrees = getOkTrees().size();
-        double speed = calcWindSpeed();
 
         for(Tree t : getOkTrees()){
-            t.windSpeed = speed;
+            t.windSpeed = speedExt;
             t.sem.release();
         }
 
@@ -41,10 +40,6 @@ public class Forest {
             if(t.state == Tree.State.OK) result.add(t);
         }
         return result;
-    }
-
-    double calcWindSpeed(){
-        return speedExt;
     }
 
     Tree getClosestTree(Tree tree){

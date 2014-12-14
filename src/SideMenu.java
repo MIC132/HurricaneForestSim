@@ -11,7 +11,7 @@ public class SideMenu extends JPanel {
     JRadioButton pineButton;
     JRadioButton spruceButton;
     JTextField speedField = new JTextField();
-    JTextField radnomAmount = new JTextField();
+    JTextField randomAmount = new JTextField();
     JTextField trunkHField = new JTextField("2");
     JTextField trunkWField = new JTextField("70");
     JTextField crownHField = new JTextField("10");
@@ -59,9 +59,9 @@ public class SideMenu extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(mainWindow.sideMenu.pineButton.isSelected()){
-                    mainWindow.forest.addRandomPines(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 600);
+                    mainWindow.forest.addRandomPines(Integer.parseInt(mainWindow.sideMenu.randomAmount.getText()), 900, 600);
                 }else{
-                    mainWindow.forest.addRandomSpruces(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 600);
+                    mainWindow.forest.addRandomSpruces(Integer.parseInt(mainWindow.sideMenu.randomAmount.getText()), 900, 600);
                 }
 
                 mainWindow.displayPanel.repaint();
@@ -74,7 +74,7 @@ public class SideMenu extends JPanel {
         speedLabel.setForeground(Color.WHITE);
         speedField.setText("20");
 
-        radnomAmount.setText("100");
+        randomAmount.setText("100");
 
         JLabel amountLabel = new JLabel("Amount");
         amountLabel.setForeground(Color.WHITE);
@@ -98,9 +98,9 @@ public class SideMenu extends JPanel {
                 double crownH = Double.parseDouble(mainWindow.sideMenu.crownHField.getText());
                 double crownW = Double.parseDouble(mainWindow.sideMenu.crownWField.getText());
                 if(mainWindow.sideMenu.pineButton.isSelected()){
-                    mainWindow.forest.addPines(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 600,trunkH,trunkW,crownH,crownW);
+                    mainWindow.forest.addPines(Integer.parseInt(mainWindow.sideMenu.randomAmount.getText()), 900, 600,trunkH,trunkW,crownH,crownW);
                 }else{
-                    mainWindow.forest.addSpruces(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 600,trunkH,trunkW,crownH,crownW);
+                    mainWindow.forest.addSpruces(Integer.parseInt(mainWindow.sideMenu.randomAmount.getText()), 900, 600,trunkH,trunkW,crownH,crownW);
                 }
                 mainWindow.displayPanel.repaint();
             }
@@ -109,7 +109,7 @@ public class SideMenu extends JPanel {
 
         this.add(addRandom);
         this.add(amountLabel);
-        this.add(radnomAmount);
+        this.add(randomAmount);
         this.add(speedLabel);
         this.add(speedField);
         this.add(pineButton);

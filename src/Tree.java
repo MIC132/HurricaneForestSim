@@ -1,6 +1,6 @@
 import java.util.concurrent.Semaphore;
 //nope
-public abstract class Tree extends Agent{
+public abstract class Tree implements Runnable{
     int x;
     int y;
     double MOR;
