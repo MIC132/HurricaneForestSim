@@ -74,7 +74,12 @@ public class Forest {
 
     public void addRandomSpruces(int amount, int xLim, int yLim){
         for(int i=0;i<amount;i++){
-            trees.add(new NorwaySpruce(rng.nextInt(xLim), rng.nextInt(yLim), rng.nextInt(3)+2, rng.nextInt(10)+25, rng.nextInt(5)+10, rng.nextInt(2)+2));
+            double coeff = rng.nextDouble();
+            double trunkH = 1*coeff + 1;
+            double trunkW = 50*coeff + 50 + rng.nextInt(15);
+            double crownH = 22*coeff + 20 + rng.nextInt(5);
+            double crownW = (2+rng.nextDouble()*2)*coeff + 2 ;
+            trees.add(new NorwaySpruce(rng.nextInt(xLim), rng.nextInt(yLim), trunkH, trunkW, crownH, crownW));
         }
     }
 

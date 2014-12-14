@@ -8,10 +8,10 @@ public class NorwaySpruce extends Tree {
         this.trunkW = trunkW;
         this.crownH = crownH;
         this.crownW = crownW;
-        this.rootD = trunkH/2;
-        this.dens = 550;                // kg/m^3
-        this.rootM = 0.3 * Math.pow(crownW, 2)*rootD/2 * dens;
-        this.MOE = 6300;
+        this.rootD = trunkH;
+        this.dens = 405;                // kg/m^3
+        this.rootM = 0.3 * Math.pow(crownW*2, 2)*rootD * dens;
+        this.MOE = 9700; //6300;
         this.MOR = 30.6;
         this.dragCoeff = 0.29;
         this.soilToTreeRatio = 0.3;
@@ -19,7 +19,8 @@ public class NorwaySpruce extends Tree {
 
     double get_dist(double height){
         if(height >= 0 && height < trunkH) return trunkW;
-        else if(height >= trunkH && height < this.height) return 2*(this.height-height)*(crownW/(2*crownH));
+        else if(height >= trunkH && height < this.height)
+            return 2*(this.height-height)*(crownW/(crownH));
         else return 0;
     }
 

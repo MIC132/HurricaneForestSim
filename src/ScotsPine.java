@@ -10,33 +10,27 @@ public class ScotsPine extends Tree {
         this.crownW = crownW;
         this.rootD = trunkH;
         this.dens = 550;                // kg/m^3
-        this.rootM = 0.25 * Math.pow(crownW, 2)*rootD * dens;
-        this.MOE = 7000;
+        this.rootM = 0.5 * Math.pow(crownW, 2)*rootD * dens;
+        this.MOE = 10080; //7000;
         this.MOR = 39.1;
         this.dragCoeff = 0.29;
         this.soilToTreeRatio = 0.3;
     }
 
+    double get_dist(double height) {
+        if(height >= 0 && height < trunkH) return trunkW;
+        if(height >= trunkH && height < trunkH+crownH/2) return (crownW*(height - trunkH))/crownH;
+        if(height >= trunkH+crownH/2 && height < this.height) return crownW*(this.height - height)/crownH;
+        return 0;
+    }
+
     @Override
     double getSurface(double height) {
-        if(height > this.height || height < 0) return 0;
-        if(height+1 <= trunkH) return trunkW*1/100;            //trunkW * 1m
-        if(height < trunkH && height+1 > trunkH) {
-            return (trunkH - height) * trunkW/100 + ((2 * Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / crownH)));
+        double wynik = 0;
+        for(double x = height; x < height+1; x+= 0.01){
+            wynik += 0.02*get_dist(x);
         }
-        if(height >= trunkH && height+1 <= trunkH+crownH/2) {
-            return ((2 * Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / crownH)))
-                    - ((2 * Math.pow(height - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / crownH)));
-        }
-        if(height < trunkH+crownH/2 && height+1 > trunkH+crownH/2){
-            return ((crownH*crownW/4) - ((2*Math.pow(height-trunkH,2)/crownH)*Math.sqrt(Math.pow(height-trunkH,2) + Math.pow(crownW/2,2))*Math.sin(Math.atan(crownW/crownH))))
-                    + ((crownH*crownW/4) - ((2*Math.pow(this.height-height-1,2)/crownH)*Math.sqrt(Math.pow(this.height-height-1,2) + Math.pow(crownW/2,2))*Math.sin(Math.atan(crownW/crownH))));
-        }
-        if ((height >= trunkH+crownH/2) && height+1 <= this.height){
-            return ((2*Math.pow(this.height-height,2)/crownH)*Math.sqrt(Math.pow(this.height-height,2) + Math.pow(crownW/2,2))*Math.sin(Math.atan(crownW/crownH)))
-                    - ((2*Math.pow(this.height-height-1,2)/crownH)*Math.sqrt(Math.pow(this.height-height-1,2) + Math.pow(crownW/2,2))*Math.sin(Math.atan(crownW/crownH)));
-        }
-        return ((2*Math.pow(this.height - height,2)/crownH)*Math.sqrt(Math.pow(this.height - height,2) + Math.pow(crownW/2,2))*Math.sin(Math.atan(crownW/crownH)));
+        return wynik;
     }
 
     @Override
