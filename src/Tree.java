@@ -56,7 +56,7 @@ public abstract class Tree extends Agent{
             return getSurface(height)*0.8;
         }
         if(windSpeed >= 11 && windSpeed <= 20){
-            return getSurface(height)*(0.044444*windSpeed-0.28889);
+            return getSurface(height)*(1-(0.044444*windSpeed-0.28889));
         }
             return getSurface(height)*0.4;
     }
@@ -103,8 +103,11 @@ public abstract class Tree extends Agent{
 
     @Override
     public String toString() {
-        String output = "Trunk height: " + trunkH + '\n';
-
+        String output = "Trunk height[m]: " + trunkH + '\n';
+        output += "Crown height[m]: " + crownH + '\n';
+        output += "Total height[m]: " + (trunkH+crownH) + '\n';
+        output += "Trunk thickness[cm]: " + trunkW + '\n';
+        output += "Crown width[m]: " + crownW;
         return output;
     }
 }

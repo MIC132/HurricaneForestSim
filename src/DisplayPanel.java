@@ -29,7 +29,7 @@ public class DisplayPanel extends JPanel{
                     }
                 }
                 if(currentTree != null){
-                    popup.add(new JTextField(currentTree.toString()));
+                    popup.add(new JTextArea(currentTree.toString()));
                     popup.show(mainWindow.displayPanel,x,y);
                     popup.setVisible(true);
                 }

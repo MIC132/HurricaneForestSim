@@ -31,4 +31,9 @@ public class NorwaySpruce extends Tree {
         }
         return wynik;
     }
+
+    @Override
+    public String toString() {
+        return "Norway Spruce\n" + super.toString();
+    }
 }

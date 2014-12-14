@@ -38,4 +38,9 @@ public class ScotsPine extends Tree {
         }
         return ((2*Math.pow(this.height - height,2)/crownH)*Math.sqrt(Math.pow(this.height - height,2) + Math.pow(crownW/2,2))*Math.sin(Math.atan(crownW/crownH)));
     }
+
+    @Override
+    public String toString() {
+        return "Scots Pine\n" + super.toString();
+    }
 }
