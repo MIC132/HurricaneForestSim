@@ -8,7 +8,7 @@ public class ScotsPine extends Tree {
         this.trunkW = trunkW;
         this.crownH = crownH;
         this.crownW = crownW;
-        this.rootD = height/4;
+        this.rootD = trunkH*1.7;
         this.dens = 550;                // kg/m^3
         this.rootM = 0.3 * Math.pow(crownW, 2)*rootD/2 * dens;
         this.MOE = 7000;

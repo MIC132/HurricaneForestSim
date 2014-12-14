@@ -44,6 +44,9 @@ public abstract class Tree extends Agent{
                 state = State.UPROOTED;
             }
         }
+
+        System.out.print("F: " + getTotalForce() + " BP: " + getBreakingPoint() + " TP: " + getTopplePoint() + "\n");
+
         forest.sem.release();
     }
 
@@ -64,10 +67,10 @@ public abstract class Tree extends Agent{
         if(height < trunkH){
             return Math.pow(trunkW/200,2)*Math.PI*1*dens*gravity;
         }
-        return (Math.pow(getSurface(height) / 2.0,2) * (1.0 / 10.0) * Math.PI * 1 * dens * gravity) + (Math.pow((1 - height/this.height)*trunkW/200,2)*Math.PI*1*dens*gravity);
+        return (Math.pow(getSurface(height) / 2.0,2) * (1.0 / 2.0) * Math.PI * 1 * dens * gravity) + (Math.pow((1 - height/this.height)*trunkW/200,2)*Math.PI*1*dens*gravity);
     }
     double getWindForce(double height, double speed){
-        return 0.7 * dragCoeff*airDens*Math.pow(speed,2)*getSurfaceCalibrated(height);
+        return dragCoeff*airDens*Math.pow(speed,2)*getSurfaceCalibrated(height);
     }
 
     double getBreakingPoint(){
@@ -76,7 +79,7 @@ public abstract class Tree extends Agent{
     }
 
     double getTopplePoint(){
-        return (gravity*rootM)*(soilToTreeRatio*100);
+        return (gravity*rootM)*soilToTreeRatio*100;
     }
 
     double getBMax(double height){
@@ -87,6 +90,7 @@ public abstract class Tree extends Agent{
         double total = 0;
         for(int i=0;i<height;i++){
             total += getBMax(i);
+
         }
         return total;
     }
