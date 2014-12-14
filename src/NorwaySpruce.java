@@ -17,17 +17,18 @@ public class NorwaySpruce extends Tree {
         this.soilToTreeRatio = 0.3;
     }
 
+    double get_dist(double height){
+        if(height >= 0 && height < trunkH) return trunkW;
+        else if(height >= trunkH && height < this.height) return 2*(this.height-height)*(crownW/(2*crownH));
+        else return 0;
+    }
+
     @Override
     double getSurface(double height) {
-        if (height > this.height || height < 0) return 0;
-        else if (height + 1 <= trunkH) return trunkW * 1/100;            //trunkW * 1m
-        else if (height < trunkH && height + 1 > trunkH)
-            return (trunkH - height) * trunkW/100 + ((Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / (2*crownH))));
-        else if (height >= trunkH && height + 1 < height)
-            return ((Math.pow(height + 1 - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height + 1 - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / (2*crownH))))
-                    - ((Math.pow(height - trunkH, 2) / crownH) * Math.sqrt(Math.pow(height - trunkH, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / (2*crownH))));
-        else if(height >= trunkH && height+1 >this.height)
-            return ((Math.pow(this.height-height, 2) / crownH) * Math.sqrt(Math.pow(this.height-height, 2) + Math.pow(crownW / 2, 2)) * Math.sin(Math.atan(crownW / (2*crownH))));
-        else return 0;
+        double wynik = 0;
+        for(double x = height; x < height+1; x+= 0.01){
+            wynik += 0.01*get_dist(x);
+        }
+        return wynik;
     }
 }

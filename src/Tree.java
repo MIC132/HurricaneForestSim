@@ -100,4 +100,11 @@ public abstract class Tree extends Agent{
     double getDistance(Tree tree){
         return Math.sqrt(Math.pow(this.x - tree.x, 2) + Math.pow(this.y - tree.y, 2) );
     }
+
+    @Override
+    public String toString() {
+        String output = "Trunk height: " + trunkH + '\n';
+
+        return output;
+    }
 }

@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class DisplayPanel extends JPanel{
     final MainProgramWindow mainWindow;
@@ -8,7 +10,34 @@ public class DisplayPanel extends JPanel{
     public DisplayPanel(MainProgramWindow parent, Forest forest) {
         this.mainWindow = parent;
         this.forest = forest;
-        this.setPreferredSize(new Dimension(400,500));
+
+        final JPopupMenu popup = new JPopupMenu("Tree data");
+        this.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                popup.setVisible(false);
+                popup.removeAll();
+
+                int x = e.getX();
+                int y = e.getY();
+
+                Tree currentTree = null;
+                for(Tree t : mainWindow.forest.trees){
+                    if(t.x > x-2 && t.x < x+2 && t.y > y-2 && t.y < y+2){
+                        currentTree = t;
+                        break;
+                    }
+                }
+                if(currentTree != null){
+                    popup.add(new JTextField(currentTree.toString()));
+                    popup.show(mainWindow.displayPanel,x,y);
+                    popup.setVisible(true);
+                }
+
+            }
+        });
+
+        this.setPreferredSize(new Dimension(900,600));
     }
 
     @Override
@@ -27,6 +56,9 @@ public class DisplayPanel extends JPanel{
         }else{
             g.setColor(Color.BLACK);
         }
-        g.fillOval(t.x+2,t.y+2,5,5);
+        g.fillOval(t.x-2,t.y-2,5,5);
     }
+
+
+
 }

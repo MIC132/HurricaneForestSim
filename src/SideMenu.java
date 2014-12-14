@@ -6,51 +6,66 @@ import java.awt.event.ActionListener;
 public class SideMenu extends JPanel {
     final MainProgramWindow mainWindow;
     JButton runButton;
-    JButton add10;
-    JButton add100;
-    JTextField speedField;
+    JButton addRandom;
+    JRadioButton pineButton;
+    JRadioButton spruceButton;
+    JTextField speedField = new JTextField();
+    JTextField radnomAmount = new JTextField();
+
     public SideMenu(MainProgramWindow parent) {
         this.mainWindow = parent;
-        this.setPreferredSize(new Dimension(100,500));
+        this.setPreferredSize(new Dimension(100,600));
         this.setBackground(Color.BLACK);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+
+        pineButton = new JRadioButton("Scots Pine");
+        spruceButton = new JRadioButton("Norway Spruce");
+        ButtonGroup treeButtons  = new ButtonGroup();
+        treeButtons.add(pineButton);
+        treeButtons.add(spruceButton);
 
         runButton = new JButton("Run");
         runButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainWindow.run();
-                //runButton.setEnabled(false);
-                //speedField.setEnabled(false);
             }
         });
         runButton.setMaximumSize(new Dimension(100,50));
-        this.add(runButton);
 
-        add10 = new JButton("Add 10");
-        add10.addActionListener(new ActionListener() {
+        addRandom = new JButton("Add");
+        addRandom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainWindow.forest.addRandomPines(10, 400, 500);
+                if(mainWindow.sideMenu.pineButton.isSelected()){
+                    mainWindow.forest.addRandomPines(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 500);
+                }else{
+                    mainWindow.forest.addRandomSpruces(Integer.parseInt(mainWindow.sideMenu.radnomAmount.getText()), 900, 500);
+                }
+
                 mainWindow.displayPanel.repaint();
             }
         });
-        add10.setMaximumSize(new Dimension(100,50));
-        this.add(add10);
+        addRandom.setMaximumSize(new Dimension(100, 50));
 
-        add100 = new JButton("Add 100");
-        add100.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainWindow.forest.addRandomPines(100, 400, 500);
-                mainWindow.displayPanel.repaint();
-            }
-        });
-        add100.setMaximumSize(new Dimension(100,50));
-        this.add(add100);
 
-        speedField = new JTextField();
-        speedField.setMaximumSize(new Dimension(100,50));
+        JLabel speedLabel = new JLabel("Prędkośc wiatru");
+        speedLabel.setForeground(Color.WHITE);
+        speedField.setText("20");
+
+        JLabel randomLabel = new JLabel("Losowe");
+        randomLabel.setForeground(Color.WHITE);
+        radnomAmount.setText("100");
+
+
+        this.add(randomLabel);
+        this.add(addRandom);
+        this.add(radnomAmount);
+        this.add(speedLabel);
         this.add(speedField);
+        this.add(pineButton);
+        this.add(spruceButton);
+        this.add(runButton);
     }
 }

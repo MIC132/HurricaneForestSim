@@ -17,7 +17,7 @@ public class MainProgramWindow {
         sideMenu = new SideMenu(this);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setTitle("Forest wind damage simulation");
-        mainWindow.setSize(500, 500);
+        mainWindow.setSize(1000, 600);
         mainWindow.add(displayPanel, BorderLayout.CENTER);
         mainWindow.add(sideMenu,BorderLayout.EAST);
         mainWindow.setResizable(false);
