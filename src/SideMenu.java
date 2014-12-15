@@ -16,6 +16,7 @@ public class SideMenu extends JPanel {
     JTextField trunkWField = new JTextField("70");
     JTextField crownHField = new JTextField("10");
     JTextField crownWField = new JTextField("3");
+    JTextField okField = new JTextField();
     JTextField brokenField = new JTextField();
     JTextField uprootedField = new JTextField();
 
@@ -25,10 +26,10 @@ public class SideMenu extends JPanel {
         this.setBackground(Color.BLACK);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-
+        //Radio buttons for choosing type of tree. Only one can be checked.
         pineButton = new JRadioButton("Scots Pine");
         pineButton.setMaximumSize(new Dimension(100,50));
-        pineButton.setSelected(true);
+        pineButton.setSelected(true); //Pines selected by default.
         spruceButton = new JRadioButton("Norway Spruce");
         spruceButton.setMaximumSize(new Dimension(100,50));
         ButtonGroup treeButtons  = new ButtonGroup();
@@ -39,7 +40,7 @@ public class SideMenu extends JPanel {
         runButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainWindow.sideMenu.runButton.setEnabled(false);
+                mainWindow.sideMenu.runButton.setEnabled(false);//Make sure someone doesn't multi-press the button. We don't want that.
                 mainWindow.run();
                 mainWindow.sideMenu.runButton.setEnabled(true);
             }
@@ -56,6 +57,7 @@ public class SideMenu extends JPanel {
         });
         clearButton.setMaximumSize(new Dimension(100,50));
 
+        //Button for adding random trees
         addRandom = new JButton("Add Random");
         addRandom.addActionListener(new ActionListener() {
             @Override
@@ -65,7 +67,6 @@ public class SideMenu extends JPanel {
                 }else{
                     mainWindow.forest.addRandomSpruces(Integer.parseInt(mainWindow.sideMenu.randomAmount.getText()), 900, 600);
                 }
-
                 mainWindow.displayPanel.repaint();
             }
         });
@@ -74,22 +75,24 @@ public class SideMenu extends JPanel {
 
         JLabel speedLabel = new JLabel("Wind speed[m/s]");
         speedLabel.setForeground(Color.WHITE);
-        speedField.setText("20");
 
+        //Initial values
+        speedField.setText("20");
         randomAmount.setText("100");
 
+        //Various assorted labels
         JLabel amountLabel = new JLabel("Amount");
         amountLabel.setForeground(Color.WHITE);
-
         JLabel trunkHLabel = new JLabel("Trunk Height[m]");
         trunkHLabel.setForeground(Color.WHITE);
         JLabel trunkWLabel = new JLabel("Trunk Width[cm]");
         trunkWLabel.setForeground(Color.WHITE);
         JLabel crownHLabel = new JLabel("Crown Height[m]");
         crownHLabel.setForeground(Color.WHITE);
-        JLabel crownWLabel = new JLabel("Crown Wifth[m]");
+        JLabel crownWLabel = new JLabel("Crown Width[m]");
         crownWLabel.setForeground(Color.WHITE);
 
+        //Button for adding trees with preset dimensions
         JButton addButton = new JButton("Add");
         addButton.setMaximumSize(new Dimension(100,50));
         addButton.addActionListener(new ActionListener() {
@@ -108,6 +111,10 @@ public class SideMenu extends JPanel {
             }
         });
 
+        JLabel okLabel = new JLabel("Ok:");
+        okLabel.setForeground(Color.WHITE);
+        okField.setEditable(false);
+
         JLabel brokenLabel = new JLabel("Broken:");
         brokenLabel.setForeground(Color.WHITE);
         brokenField.setEditable(false);
@@ -116,7 +123,7 @@ public class SideMenu extends JPanel {
         uprootedLabel.setForeground(Color.WHITE);
         uprootedField.setEditable(false);
 
-
+        //Adding all components
         this.add(addRandom);
         this.add(amountLabel);
         this.add(randomAmount);
@@ -135,6 +142,8 @@ public class SideMenu extends JPanel {
         this.add(addButton);
         this.add(runButton);
         this.add(clearButton);
+        this.add(okLabel);
+        this.add(okField);
         this.add(brokenLabel);
         this.add(brokenField);
         this.add(uprootedLabel);

@@ -26,9 +26,10 @@ public class MainProgramWindow {
     }
 
     public void run(){
-        forest.speedExt = Double.parseDouble(sideMenu.speedField.getText());
-        forest.run();
+        forest.speedExt = Double.parseDouble(sideMenu.speedField.getText());//Gets the speed from gui field
+        forest.run();//Run Forrest, Run.
         displayPanel.repaint();
+        sideMenu.okField.setText(String.valueOf(forest.getStateTrees(Tree.State.OK).size()));//This and next lines count and display the amount of trees in each state.
         sideMenu.brokenField.setText(String.valueOf(forest.getStateTrees(Tree.State.BROKEN).size()));
         sideMenu.uprootedField.setText(String.valueOf(forest.getStateTrees(Tree.State.UPROOTED).size()));
     }
