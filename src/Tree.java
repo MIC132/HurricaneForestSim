@@ -111,7 +111,13 @@ public abstract class Tree implements Runnable{
         output += "Crown height[m]: " + crownH + '\n';
         output += "Total height[m]: " + (trunkH+crownH) + '\n';
         output += "Trunk thickness[cm]: " + trunkW + '\n';
-        output += "Crown width[m]: " + crownW;
+        output += "Crown width[m]: " + crownW + '\n';
+        output += "State: ";
+        switch (state) {
+            case OK: output += "OK"; break;
+            case BROKEN: output += "BROKEN"; break;
+            case UPROOTED: output += "UPROOTED"; break;
+        }
         return output;
     }
 }

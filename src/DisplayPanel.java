@@ -15,7 +15,7 @@ public class DisplayPanel extends JPanel{
         this.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                popup.setVisible(false);
+                popup.setVisible(false); //Hide the popup always, show only if on tree
                 popup.removeAll();
 
                 int x = e.getX();
@@ -23,12 +23,12 @@ public class DisplayPanel extends JPanel{
 
                 Tree currentTree = null;
                 for(Tree t : mainWindow.forest.trees){
-                    if(t.x > x-2 && t.x < x+2 && t.y > y-2 && t.y < y+2){
+                    if(t.x > x-2 && t.x < x+2 && t.y > y-2 && t.y < y+2){  //Grabs tree in 5x5 square, so we don't pixel-hunt
                         currentTree = t;
                         break;
                     }
                 }
-                if(currentTree != null){
+                if(currentTree != null){ //If we got tree, we display al info
                     JTextArea textArea = new JTextArea(currentTree.toString());
                     textArea.setEditable(false);
                     popup.add(textArea);
@@ -37,7 +37,7 @@ public class DisplayPanel extends JPanel{
                 }
 
             }
-        });
+        }); //Listener responsible for tree info popup
 
         this.setPreferredSize(new Dimension(900,600));
     }
@@ -50,6 +50,7 @@ public class DisplayPanel extends JPanel{
         }
     }
 
+    //Paints the tree, using circle (diameter 5) and color based on state
     public void paintTree(Tree t, Graphics g){
         if(t.state == Tree.State.OK){
             g.setColor(Color.GREEN);

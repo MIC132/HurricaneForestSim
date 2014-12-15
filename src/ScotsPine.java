@@ -17,6 +17,7 @@ public class ScotsPine extends Tree {
         this.soilToTreeRatio = 0.3;
     }
 
+    //Calculates 'radius' of tree on given height
     double get_dist(double height) {
         if(height >= 0 && height < trunkH) return trunkW;
         if(height >= trunkH && height < trunkH+crownH/2) return (crownW*(height - trunkH))/crownH;
@@ -24,6 +25,7 @@ public class ScotsPine extends Tree {
         return 0;
     }
 
+    //Calculates surface of the tree, using above 'radius'
     @Override
     double getSurface(double height) {
         double wynik = 0;
