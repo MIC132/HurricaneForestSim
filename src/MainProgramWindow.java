@@ -29,5 +29,7 @@ public class MainProgramWindow {
         forest.speedExt = Double.parseDouble(sideMenu.speedField.getText());
         forest.run();
         displayPanel.repaint();
+        sideMenu.brokenField.setText(String.valueOf(forest.getStateTrees(Tree.State.BROKEN).size()));
+        sideMenu.uprootedField.setText(String.valueOf(forest.getStateTrees(Tree.State.UPROOTED).size()));
     }
 }

@@ -16,6 +16,8 @@ public class SideMenu extends JPanel {
     JTextField trunkWField = new JTextField("70");
     JTextField crownHField = new JTextField("10");
     JTextField crownWField = new JTextField("3");
+    JTextField brokenField = new JTextField();
+    JTextField uprootedField = new JTextField();
 
     public SideMenu(MainProgramWindow parent) {
         this.mainWindow = parent;
@@ -106,6 +108,14 @@ public class SideMenu extends JPanel {
             }
         });
 
+        JLabel brokenLabel = new JLabel("Broken:");
+        brokenLabel.setForeground(Color.WHITE);
+        brokenField.setEditable(false);
+
+        JLabel uprootedLabel = new JLabel("Uprooted:");
+        uprootedLabel.setForeground(Color.WHITE);
+        uprootedField.setEditable(false);
+
 
         this.add(addRandom);
         this.add(amountLabel);
@@ -125,5 +135,9 @@ public class SideMenu extends JPanel {
         this.add(addButton);
         this.add(runButton);
         this.add(clearButton);
+        this.add(brokenLabel);
+        this.add(brokenField);
+        this.add(uprootedLabel);
+        this.add(uprootedField);
     }
 }

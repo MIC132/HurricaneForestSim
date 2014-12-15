@@ -45,7 +45,7 @@ public abstract class Tree implements Runnable{
             }
         }
 
-        System.out.print("F: " + getTotalForce() + " BP: " + getBreakingPoint() + " TP: " + getTopplePoint() + "\n");
+        //System.out.print("F: " + getTotalForce() + " BP: " + getBreakingPoint() + " TP: " + getTopplePoint() + "\n");
 
         forest.sem.release();
     }
@@ -83,7 +83,7 @@ public abstract class Tree implements Runnable{
     }
 
     double getBMax(double height){
-        System.out.print("H: " + height + " WF: " + getWindForce(height, windSpeed) + " GF: " + getGravForce(height) + " Di: " + getDisplacement(height, windSpeed) + " \n");
+        //System.out.print("H: " + height + " WF: " + getWindForce(height, windSpeed) + " GF: " + getGravForce(height) + " Di: " + getDisplacement(height, windSpeed) + " \n");
         return getWindForce(height, windSpeed)*height + getGravForce(height)*getDisplacement(height, windSpeed);
     }
 

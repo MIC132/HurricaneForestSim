@@ -19,9 +19,9 @@ public class Forest {
             exec.execute(t);
         }
 
-        int okTrees = getOkTrees().size();
+        int okTrees = getStateTrees(Tree.State.OK).size();
 
-        for(Tree t : getOkTrees()){
+        for(Tree t : getStateTrees(Tree.State.OK)){
             t.windSpeed = speedExt;
             t.sem.release();
         }
@@ -34,17 +34,17 @@ public class Forest {
         exec.shutdownNow();
     }
 
-    public LinkedList<Tree> getOkTrees(){
+    public LinkedList<Tree> getStateTrees(Tree.State state){
         LinkedList<Tree> result = new LinkedList<Tree>();
         for(Tree t : trees){
-            if(t.state == Tree.State.OK) result.add(t);
+            if(t.state == state) result.add(t);
         }
         return result;
     }
 
     Tree getClosestTree(Tree tree){
         double dist = 1000;
-        LinkedList<Tree> temp = getOkTrees();
+        LinkedList<Tree> temp = getStateTrees(Tree.State.OK);
         temp.remove(tree);
         Tree output = tree;
         for (Tree t : temp){
